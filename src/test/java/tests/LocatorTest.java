@@ -1,3 +1,5 @@
+package tests;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -35,7 +37,6 @@ public class LocatorTest {
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();
 
-        //driver.get("https://www.saucedemo.com/inventory.html");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.findElement(By.linkText("Twitter"));
         driver.findElement(By.partialLinkText("Face"));
