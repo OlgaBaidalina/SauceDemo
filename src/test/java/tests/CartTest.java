@@ -1,7 +1,8 @@
 package tests;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
+import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 
 public class CartTest extends BaseTest {
@@ -13,7 +14,7 @@ public class CartTest extends BaseTest {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addProduct();
         productsPage.openCart();
-        Assert.assertEquals(cartPage.getProductName(), "Sauce Labs Fleece Jacket");
+        assertEquals(cartPage.getProductName(), "Sauce Labs Fleece Jacket");
     }
 
     // Цена добавленного товара совпадает в корзине
@@ -23,7 +24,7 @@ public class CartTest extends BaseTest {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addProduct();
         productsPage.openCart();
-        Assert.assertEquals(cartPage.getProductPrice(), "$49.99");
+        assertEquals(cartPage.getProductPrice(), "$49.99");
     }
 
     // Переход на страницу оформления (Checkout)
@@ -34,7 +35,7 @@ public class CartTest extends BaseTest {
         productsPage.addProduct();
         productsPage.openCart();
         cartPage.clickCheckout();
-        Assert.assertTrue(driver.getCurrentUrl().contains("checkout-step-one.html"),
+        assertTrue(driver.getCurrentUrl().contains("checkout-step-one.html"),
                 "Должен быть переход на страницу оформления заказа");
     }
 
@@ -47,7 +48,7 @@ public class CartTest extends BaseTest {
         productsPage.openCart();
         cartPage.removeProduct();
         boolean cartIsEmpty = driver.findElements(By.className("inventory_item_name")).size() == 0;
-        Assert.assertTrue(cartIsEmpty, "Корзина должна быть пустой после удаления");
+        assertTrue(cartIsEmpty, "Корзина должна быть пустой после удаления");
     }
 
     //Возврат к товарам на страницу с продуктами
@@ -58,7 +59,7 @@ public class CartTest extends BaseTest {
         productsPage.addProduct();
         productsPage.openCart();
         cartPage.clickContinueShopping();
-        Assert.assertTrue(driver.getCurrentUrl().contains("inventory.html"),
+        assertTrue(driver.getCurrentUrl().contains("inventory.html"),
                 "Должен быть возврат на страницу с товарами");
     }
 }

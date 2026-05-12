@@ -1,6 +1,7 @@
 package tests;
 
-import org.testng.Assert;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 import org.testng.annotations.Test;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class ProductsTest extends BaseTest{
     public void checkPageTitle() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
-        Assert.assertEquals(productsPage.getTitle(), "Products");
+        assertEquals(productsPage.getTitle(), "Products");
     }
 
     // Обновление счетчика корзины после добавления товара
@@ -20,7 +21,7 @@ public class ProductsTest extends BaseTest{
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addProduct();
-        Assert.assertEquals(productsPage.getQuantityCart(), 1);
+        assertEquals(productsPage.getQuantityCart(), 1);
     }
 
     // Сортировка "Name (A to Z)"
@@ -31,7 +32,7 @@ public class ProductsTest extends BaseTest{
         productsPage.sortBy("az");
         List<String> names = productsPage.getAllProductNames();
         for (int i = 0; i < names.size() - 1; i++) {
-            Assert.assertTrue(names.get(i).compareTo(names.get(i + 1)) <= 0);
+            assertTrue(names.get(i).compareTo(names.get(i + 1)) <= 0);
         }
     }
 
@@ -43,7 +44,7 @@ public class ProductsTest extends BaseTest{
         productsPage.sortBy("za");
         List<String> names = productsPage.getAllProductNames();
         for (int i = 0; i < names.size() - 1; i++) {
-            Assert.assertTrue(names.get(i).compareTo(names.get(i + 1)) >= 0);
+            assertTrue(names.get(i).compareTo(names.get(i + 1)) >= 0);
         }
     }
 
@@ -55,7 +56,7 @@ public class ProductsTest extends BaseTest{
         productsPage.sortBy("lohi");
         List<Double> prices = productsPage.getAllProductPrices();
         for (int i = 0; i < prices.size() - 1; i++) {
-            Assert.assertTrue(prices.get(i) <= prices.get(i + 1));
+            assertTrue(prices.get(i) <= prices.get(i + 1));
         }
     }
 
@@ -67,7 +68,7 @@ public class ProductsTest extends BaseTest{
         productsPage.sortBy("hilo");
         List<Double> prices = productsPage.getAllProductPrices();
         for (int i = 0; i < prices.size() - 1; i++) {
-            Assert.assertTrue(prices.get(i) >= prices.get(i + 1));
+            assertTrue(prices.get(i) >= prices.get(i + 1));
         }
     }
 
@@ -76,9 +77,7 @@ public class ProductsTest extends BaseTest{
     public void checkGoToCartByIcon() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
-
         productsPage.openCart();
-
-        Assert.assertTrue(driver.getCurrentUrl().contains("cart.html"));
+        assertTrue(driver.getCurrentUrl().contains("cart.html"));
     }
 }

@@ -9,10 +9,8 @@ public class CheckoutPage extends BasePage {
     private final By LAST_NAME_FIELD = By.id("last-name");
     private final By POSTAL_CODE_FIELD = By.id("postal-code");
     private final By CONTINUE_BUTTON = By.id("continue");
-    private final By CANCEL_BUTTON = By.id("cancel");
     private final By ERROR_MESSAGE = By.xpath("//h3[@data-test='error']");
     private final By FINISH_BUTTON = By.id("finish");
-    private final By COMPLETE_HEADER = By.className("complete-header");
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
@@ -33,7 +31,6 @@ public class CheckoutPage extends BasePage {
     public void clickContinue() {
         driver.findElement(CONTINUE_BUTTON).click();
     }
-
     public void fillCheckoutInfo(String firstName, String lastName, String postalCode) {
         enterFirstName(firstName);
         enterLastName(lastName);
@@ -44,7 +41,6 @@ public class CheckoutPage extends BasePage {
     public String getErrorMessage() {
         return driver.findElement(ERROR_MESSAGE).getText();
     }
-
 
     public boolean isErrorMessageDisplayed() {
         return driver.findElements(ERROR_MESSAGE).size() > 0;
