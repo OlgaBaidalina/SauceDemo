@@ -7,16 +7,18 @@ import java.util.List;
 
 public class ProductsTest extends BaseTest{
 
-    // Заголовок страницы с товарами
-    @Test
+    @Test (priority = 1,
+            description = "Проверка заголовка страницы с товарами",
+            testName = "Проверка заголовка страницы Products")
     public void checkPageTitle() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         assertEquals(productsPage.getTitle(), "Products");
     }
 
-    // Обновление счетчика корзины после добавления товара
-    @Test
+    @Test (priority = 2,
+            description = "Проверка обновления счетчика корзины после добавления товара",
+            testName = "Добавление товара в корзину")
     public void checkAddProductToCart() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -24,8 +26,9 @@ public class ProductsTest extends BaseTest{
         assertEquals(productsPage.getQuantityCart(), 1);
     }
 
-    // Сортировка "Name (A to Z)"
-    @Test
+    @Test (priority = 3,
+            description = "Проверка сортировки товаров по имени от A до Z",
+            testName = "Сортировка товаров Name(A to Z)")
     public void checkSortByNameAZ() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -36,8 +39,9 @@ public class ProductsTest extends BaseTest{
         }
     }
 
-    // Сортировка "Name (Z to A)"
-    @Test
+    @Test (priority = 4,
+            description = "Проверка сортировки товаров по имени от Z до A",
+            testName = "Сортировка товаров Name(Z to A)")
     public void checkSortByNameZA() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -48,8 +52,9 @@ public class ProductsTest extends BaseTest{
         }
     }
 
-    // Сортировка "Price (low to high)"
-    @Test
+    @Test (priority = 5,
+            description = "Проверка сортировки товаров по цене от меньшей к большей",
+            testName = "Сортировка товаров Price(low to high)")
     public void checkSortByPriceLowToHigh() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -60,8 +65,9 @@ public class ProductsTest extends BaseTest{
         }
     }
 
-    // Сортировка "Price (high to low)"
-    @Test
+    @Test (priority = 6,
+            description = "Проверка сортировки товаров по цене от большей к меньшей",
+            testName = "Сортировка товаров Price(high to low)")
     public void checkSortByPriceHighToLow() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -72,8 +78,9 @@ public class ProductsTest extends BaseTest{
         }
     }
 
-    // Переход на страницу корзины по клику на иконку корзины
-    @Test
+    @Test (priority = 1,
+            description = "Проверка перехода на страницу корзины по иконке корзины",
+            testName = "Переход в корзину")
     public void checkGoToCartByIcon() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
