@@ -1,52 +1,39 @@
 package tests;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class CheckoutTest extends BaseTest{
 
-    // Ошибки при пустом поле First Name
-    @Test
-    public void checkErrorWhenFirstNameIsEmpty() {
+    @DataProvider(name ="Данные для проверки ошибок Checkout")
+    public Object[][] checkoutErrorsData() {
+        return new Object[][]{
+                {"", "Абрамова", "12345", "Error: First Name is required"},
+                {"Елена", "", "12345", "Error: Last Name is required"},
+                {"Елена", "Абрамова", "", "Error: Postal Code is required"}
+        };
+    }
+
+    @Test(dataProvider = "Данные для проверки ошибок Checkout",
+            priority = 1,
+            description = "Проверка отображения ошибок при пустых полях оформления заказа",
+            testName = "Проверка ошибок Checkout")
+    public void checkCheckoutErrors(String firstName, String lastName, String postalCode, String expectedError) {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addProduct();
         productsPage.openCart();
         cartPage.clickCheckout();
-        checkoutPage.fillCheckoutInfo("", "Абрамова", "12345");
+        checkoutPage.fillCheckoutInfo(firstName, lastName, postalCode);
         assertTrue(checkoutPage.isErrorMessageDisplayed());
-        assertEquals(checkoutPage.getErrorMessage(), "Error: First Name is required");
+        assertEquals(checkoutPage.getErrorMessage(), expectedError);
     }
 
-    // Ошибка при пустом поле Last Name
-    @Test
-    public void checkErrorWhenLastNameIsEmpty() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
-        productsPage.openCart();
-        cartPage.clickCheckout();
-        checkoutPage.fillCheckoutInfo("Елена", "", "12345");
-        assertTrue(checkoutPage.isErrorMessageDisplayed());
-        assertEquals(checkoutPage.getErrorMessage(), "Error: Last Name is required");
-    }
-
-    // Ошибка при пустом поле Postal Code
-    @Test
-    public void checkErrorWhenPostalCodeIsEmpty() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
-        productsPage.openCart();
-        cartPage.clickCheckout();
-        checkoutPage.fillCheckoutInfo("Елена", "Абрамова", "");
-        assertTrue(checkoutPage.isErrorMessageDisplayed());
-        assertEquals(checkoutPage.getErrorMessage(), "Error: Postal Code is required");
-    }
-
-    // Переход на Overview после заполнения полей
-    @Test
+    @Test(priority = 2,
+            description = "Проверка перехода на страницу Overview после заполнения данных",
+            testName = "Переход на страницу Overview")
     public void checkGoToOverviewStep() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -58,8 +45,9 @@ public class CheckoutTest extends BaseTest{
                 "Должен быть переход на страницу Overview");
     }
 
-    // Завершение заказа по кнопке Finish
-    @Test
+    @Test(priority = 3,
+            description = "Проверка успешного завершения оформления заказа",
+            testName = "Успешное завершение заказа")
     public void checkFinishOrder() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");

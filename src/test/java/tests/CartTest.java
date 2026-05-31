@@ -7,8 +7,9 @@ import org.testng.annotations.Test;
 
 public class CartTest extends BaseTest {
 
-    // Название добавленного товара совпадает в корзине
-    @Test
+    @Test (priority = 1,
+            description = "Проверка соответствия названия товара в корзине",
+            testName = "Проверка названия товара в корзине")
     public void checkProductNameInCart() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -17,8 +18,9 @@ public class CartTest extends BaseTest {
         assertEquals(cartPage.getProductName(), "Sauce Labs Fleece Jacket");
     }
 
-    // Цена добавленного товара совпадает в корзине
-    @Test
+    @Test (priority = 2,
+            description = "Проверка соответствия цены товара в корзине",
+            testName = "Проверка цены товара в корзине")
     public void checkProductPriceInCart() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -27,8 +29,9 @@ public class CartTest extends BaseTest {
         assertEquals(cartPage.getProductPrice(), "$49.99");
     }
 
-    // Переход на страницу оформления (Checkout)
-    @Test
+    @Test (priority = 3,
+            description = "Проверка перехода на страницу оформления заказа",
+            testName = "Переход на страницу Checkout")
     public void checGoToCheckout() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -39,8 +42,9 @@ public class CartTest extends BaseTest {
                 "Должен быть переход на страницу оформления заказа");
     }
 
-    //Удаление товара из корзины
-    @Test
+    @Test (priority = 4,
+            description = "Проверка удаления товара из корзины",
+            testName = "Удаление товара из корзины")
     public void checkRemoveProductFromCart() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -51,8 +55,9 @@ public class CartTest extends BaseTest {
         assertTrue(cartIsEmpty, "Корзина должна быть пустой после удаления");
     }
 
-    //Возврат к товарам на страницу с продуктами
-    @Test
+    @Test (priority = 5,
+            description = "Проверка возврата на страницу с товарами",
+            testName = "Возврат на страницу товара")
     public void checkContinueShopping() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
