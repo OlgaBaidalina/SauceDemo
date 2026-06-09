@@ -18,11 +18,11 @@ import java.util.HashMap;
 
 public class BaseTest {
 
-    WebDriver driver;
-    LoginPage loginPage;
-    ProductsPage productsPage;
-    CartPage cartPage;
-    CheckoutPage checkoutPage;
+    protected WebDriver driver;
+    protected LoginPage loginPage;
+    protected ProductsPage productsPage;
+    protected CartPage cartPage;
+    protected CheckoutPage checkoutPage;
 
     @Parameters({"browser"})
     @BeforeMethod (alwaysRun = true)
