@@ -2,14 +2,20 @@ package tests;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import java.util.List;
 
+@Epic("Sauce Demo Testing")
+@Feature("Товары")
+@Story("Просмотр и сортировка товаров")
 public class ProductsTest extends BaseTest{
 
     @Test (priority = 1,
-            description = "Проверка заголовка страницы с товарами",
             testName = "Проверка заголовка страницы Products")
+    @Description("Проверка заголовка страницы с товарами")
+    @Severity(SeverityLevel.NORMAL)
     public void checkPageTitle() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -17,18 +23,20 @@ public class ProductsTest extends BaseTest{
     }
 
     @Test (priority = 2,
-            description = "Проверка обновления счетчика корзины после добавления товара",
             testName = "Добавление товара в корзину")
+    @Description("Проверка обновления счетчика корзины после добавления товара")
+    @Severity(SeverityLevel.CRITICAL)
     public void checkAddProductToCart() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
+        productsPage.addProduct("Sauce Labs Fleece Jacket");
         assertEquals(productsPage.getQuantityCart(), 1);
     }
 
     @Test (priority = 3,
-            description = "Проверка сортировки товаров по имени от A до Z",
             testName = "Сортировка товаров Name(A to Z)")
+    @Description("Проверка сортировки товаров по имени от A до Z")
+    @Severity(SeverityLevel.NORMAL)
     public void checkSortByNameAZ() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -40,8 +48,9 @@ public class ProductsTest extends BaseTest{
     }
 
     @Test (priority = 4,
-            description = "Проверка сортировки товаров по имени от Z до A",
             testName = "Сортировка товаров Name(Z to A)")
+    @Description("Проверка сортировки товаров по имени от Z до A")
+    @Severity(SeverityLevel.NORMAL)
     public void checkSortByNameZA() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -53,8 +62,9 @@ public class ProductsTest extends BaseTest{
     }
 
     @Test (priority = 5,
-            description = "Проверка сортировки товаров по цене от меньшей к большей",
             testName = "Сортировка товаров Price(low to high)")
+    @Description("Проверка сортировки товаров по цене от меньшей к большей")
+    @Severity(SeverityLevel.NORMAL)
     public void checkSortByPriceLowToHigh() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -66,7 +76,6 @@ public class ProductsTest extends BaseTest{
     }
 
     @Test (priority = 6,
-            description = "Проверка сортировки товаров по цене от большей к меньшей",
             testName = "Сортировка товаров Price(high to low)")
     public void checkSortByPriceHighToLow() {
         loginPage.open();
@@ -79,8 +88,10 @@ public class ProductsTest extends BaseTest{
     }
 
     @Test (priority = 1,
-            description = "Проверка перехода на страницу корзины по иконке корзины",
             testName = "Переход в корзину")
+    @Description("Проверка перехода на страницу корзины по иконке корзины")
+    @Severity(SeverityLevel.NORMAL)
+    @Owner("Baydalina Olga")
     public void checkGoToCartByIcon() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");

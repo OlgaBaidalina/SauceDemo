@@ -1,10 +1,13 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+@Epic("Sauce Demo Testing")
+@Feature("Оформление заказа")
 public class CheckoutTest extends BaseTest{
 
     @DataProvider(name ="Данные для проверки ошибок Checkout")
@@ -18,12 +21,13 @@ public class CheckoutTest extends BaseTest{
 
     @Test(dataProvider = "Данные для проверки ошибок Checkout",
             priority = 1,
-            description = "Проверка отображения ошибок при пустых полях оформления заказа",
             testName = "Проверка ошибок Checkout")
+    @Description("Проверка отображения ошибок при пустых полях оформления заказа")
+    @Severity(SeverityLevel.NORMAL)
     public void checkCheckoutErrors(String firstName, String lastName, String postalCode, String expectedError) {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
+        productsPage.addProduct("Sauce Labs Fleece Jacket");
         productsPage.openCart();
         cartPage.clickCheckout();
         checkoutPage.fillCheckoutInfo(firstName, lastName, postalCode);
@@ -32,12 +36,13 @@ public class CheckoutTest extends BaseTest{
     }
 
     @Test(priority = 2,
-            description = "Проверка перехода на страницу Overview после заполнения данных",
             testName = "Переход на страницу Overview")
+    @Description("Проверка перехода на страницу Overview после заполнения данных")
+    @Severity(SeverityLevel.CRITICAL)
     public void checkGoToOverviewStep() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
+        productsPage.addProduct("Sauce Labs Fleece Jacket");
         productsPage.openCart();
         cartPage.clickCheckout();
         checkoutPage.fillCheckoutInfo("Елена", "Абрамова", "12345");
@@ -46,12 +51,13 @@ public class CheckoutTest extends BaseTest{
     }
 
     @Test(priority = 3,
-            description = "Проверка успешного завершения оформления заказа",
             testName = "Успешное завершение заказа")
+    @Description("Проверка успешного завершения оформления заказа")
+    @Severity(SeverityLevel.BLOCKER)
     public void checkFinishOrder() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
+        productsPage.addProduct("Sauce Labs Fleece Jacket");
         productsPage.openCart();
         cartPage.clickCheckout();
         checkoutPage.fillCheckoutInfo("Елена", "Абрамова", "12345");
