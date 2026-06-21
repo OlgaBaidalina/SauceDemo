@@ -3,6 +3,7 @@ package pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CheckoutPage extends BasePage {
 
@@ -17,32 +18,42 @@ public class CheckoutPage extends BasePage {
         super(driver);
     }
 
+    public CheckoutPage isLoaded() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(CONTINUE_BUTTON));
+        return this;
+    }
+
     @Step("Ввести имя: '{firstName}'")
-    public void enterFirstName(String firstName) {
+    public CheckoutPage enterFirstName(String firstName) {
         driver.findElement(FIRST_NAME_FIELD).sendKeys(firstName);
+        return this;
     }
 
     @Step("Ввести фамилию: '{lastName}'")
-    public void enterLastName(String lastName) {
+    public CheckoutPage enterLastName(String lastName) {
         driver.findElement(LAST_NAME_FIELD).sendKeys(lastName);
+        return this;
     }
 
     @Step("Ввод почтового индекса: '{postalCode}'")
-    public void enterPostalCode(String postalCode) {
+    public CheckoutPage enterPostalCode(String postalCode) {
         driver.findElement(POSTAL_CODE_FIELD).sendKeys(postalCode);
+        return this;
     }
 
     @Step("Нажатие кнопку Continue")
-    public void clickContinue() {
+    public CheckoutPage clickContinue() {
         driver.findElement(CONTINUE_BUTTON).click();
+        return this;
     }
 
     @Step("Ввод данных для оформления заказа: имя='{firstName}', фамилия='{lastName}', индекс='{postalCode}'")
-    public void fillCheckoutInfo(String firstName, String lastName, String postalCode) {
+    public CheckoutPage fillCheckoutInfo(String firstName, String lastName, String postalCode) {
         enterFirstName(firstName);
         enterLastName(lastName);
         enterPostalCode(postalCode);
         clickContinue();
+        return this;
     }
 
     @Step("Получение сообщения об ошибке")
@@ -56,7 +67,8 @@ public class CheckoutPage extends BasePage {
     }
 
     @Step("Нажатие кнопку Finish")
-    public void clickFinish() {
+    public CheckoutPage clickFinish() {
         driver.findElement(FINISH_BUTTON).click();
+        return this;
     }
 }

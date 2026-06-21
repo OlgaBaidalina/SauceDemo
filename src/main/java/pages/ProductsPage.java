@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
@@ -23,9 +24,15 @@ public class ProductsPage extends BasePage {
         super(driver);
     }
 
+    public ProductsPage isLoad() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
+        return this;
+    }
+
     @Step("Открытие страницы товаров")
-    public void open() {
+    public ProductsPage open() {
         driver.get(BASE_URL + "/inventory.html");
+        return isLoad();
     }
 
     @Step("Получение заголовка страницы")
@@ -34,13 +41,15 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Добавление товара с именем '{productName}' в корзину")
-    public void addProduct(String productName) {
+    public ProductsPage addProduct(String productName) {
             driver.findElement(By.xpath(String.format(ADD_PRODUCT_PATTERN, productName))).click();
+            return this;
     }
 
     @Step("Открытие корзины")
-    public void openCart() {
+    public CartPage openCart() {
         driver.findElement(CART_ICON).click();
+        return new CartPage(driver);
     }
 
     @Step("Получение количества товаров в корзине")
@@ -52,9 +61,10 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Сортировка товаров по: '{value}'")
-    public void sortBy(String value) {
+    public ProductsPage sortBy(String value) {
         Select select = new Select(driver.findElement(SORT_DROPDOWN));
         select.selectByValue(value);
+        return this;
     }
 
     @Step("Получение списка названий всех товаров")

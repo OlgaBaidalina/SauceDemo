@@ -20,9 +20,9 @@ public class LoginTest extends BaseTest {
     @TmsLink("TC-202")
     @Issue("BUG-111")
     public void checkLoginWithPositiveCred() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        assertEquals(productsPage.getTitle(), "Product");
+        loginPage.open()
+                .login("standard_user", "secret_sauce");
+        assertEquals(productsPage.getTitle(), "Products");
     }
 
     @DataProvider(name = "Тестовые данные для негативного логина")
@@ -40,8 +40,8 @@ public class LoginTest extends BaseTest {
     @Description ("Проверка отображения ошибок при вводе некорректных данных")
     @Severity(SeverityLevel.NORMAL)
     public void negativeLogin(String user, String password, String errorMessage) {
-        loginPage.open();
-        loginPage.login(user, password);
+        loginPage.open()
+                .login(user, password);
         assertEquals(loginPage.getErrorMessage(), errorMessage);
     }
 }

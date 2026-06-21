@@ -16,10 +16,10 @@ public class CartTest extends BaseTest {
     @Description("Проверка соответствия названия товара в корзине")
     @Severity(SeverityLevel.NORMAL)
     public void checkProductNameInCart() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct("Sauce Labs Fleece Jacket");
-        productsPage.openCart();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct("Sauce Labs Fleece Jacket")
+                .openCart();
         assertEquals(cartPage.getProductName(), "Sauce Labs Fleece Jacket");
     }
 
@@ -28,10 +28,10 @@ public class CartTest extends BaseTest {
     @Description("Проверка соответствия цены товара в корзине")
     @Severity(SeverityLevel.NORMAL)
     public void checkProductPriceInCart() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct("Sauce Labs Fleece Jacket");
-        productsPage.openCart();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct("Sauce Labs Fleece Jacket")
+                .openCart();
         assertEquals(cartPage.getProductPrice(), "$49.99");
     }
 
@@ -40,11 +40,11 @@ public class CartTest extends BaseTest {
     @Description("Проверка перехода на страницу оформления заказа")
     @Severity(SeverityLevel.CRITICAL)
     public void checGoToCheckout() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct("Sauce Labs Fleece Jacket");
-        productsPage.openCart();
-        cartPage.clickCheckout();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct("Sauce Labs Fleece Jacket")
+                .openCart()
+                .clickCheckout();
         assertTrue(driver.getCurrentUrl().contains("checkout-step-one.html"),
                 "Должен быть переход на страницу оформления заказа");
     }
@@ -55,11 +55,11 @@ public class CartTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Owner("Baydalina Olga")
     public void checkRemoveProductFromCart() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct("Sauce Labs Fleece Jacket");
-        productsPage.openCart();
-        cartPage.removeProduct();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct("Sauce Labs Fleece Jacket")
+                .openCart()
+                .removeProduct();
         boolean cartIsEmpty = driver.findElements(By.className("inventory_item_name")).size() == 0;
         assertTrue(cartIsEmpty, "Корзина должна быть пустой после удаления");
     }
@@ -70,11 +70,11 @@ public class CartTest extends BaseTest {
     @Description("Проверка возврата на страницу с товарами")
     @Severity(SeverityLevel.NORMAL)
     public void checkContinueShopping() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct("Sauce Labs Fleece Jacket");
-        productsPage.openCart();
-        cartPage.clickContinueShopping();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct("Sauce Labs Fleece Jacket")
+                .openCart()
+                .clickContinueShopping();
         assertTrue(driver.getCurrentUrl().contains("inventory.html"),
                 "Должен быть возврат на страницу с товарами");
     }
