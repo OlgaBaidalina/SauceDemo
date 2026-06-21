@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CartPage extends BasePage {
 
@@ -23,15 +24,23 @@ public class CartPage extends BasePage {
         return driver.findElement(PRODUCT_PRICE).getText();
     }
 
-    public void clickCheckout() {
+    public CheckoutPage clickCheckout() {
         driver.findElement(CHECKOUT_BUTTON).click();
+        return new CheckoutPage(driver);
     }
 
-    public void removeProduct() {
+    public CartPage removeProduct() {
         driver.findElement(REMOVE_BUTTON).click();
+        return this;
     }
 
-    public void clickContinueShopping() {
+    public ProductsPage clickContinueShopping() {
         driver.findElement(CONTINUE_SHOPPING_BUTTON).click();
+        return new ProductsPage(driver);
+    }
+
+    public CartPage isLoaded() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(CHECKOUT_BUTTON));
+        return this;
     }
 }

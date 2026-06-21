@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
@@ -22,20 +23,23 @@ public class ProductsPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    public ProductsPage open() {
         driver.get(BASE_URL + "/inventory.html");
+        return this;
     }
 
     public String getTitle() {
         return driver.findElement(TITLE).getText();
     }
 
-    public void addProduct() {
+    public ProductsPage addProduct() {
         driver.findElement(ADD_PRODUCT).click();
+        return this;
     }
 
-    public void openCart() {
+    public CartPage openCart() {
         driver.findElement(CART_ICON).click();
+        return new CartPage(driver);
     }
 
     public int getQuantityCart() {
@@ -45,9 +49,10 @@ public class ProductsPage extends BasePage {
         return 0;
     }
 
-    public void sortBy(String value) {
+    public ProductsPage sortBy(String value) {
         Select select = new Select(driver.findElement(SORT_DROPDOWN));
         select.selectByValue(value);
+        return this;
     }
 
     public List<String> getAllProductNames() {
@@ -65,5 +70,10 @@ public class ProductsPage extends BasePage {
             prices.add(Double.parseDouble(priceText));
         }
         return prices;
+    }
+
+    public ProductsPage isLoaded() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
+        return this;
     }
 }

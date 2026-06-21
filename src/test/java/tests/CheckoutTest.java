@@ -21,12 +21,12 @@ public class CheckoutTest extends BaseTest{
             description = "Проверка отображения ошибок при пустых полях оформления заказа",
             testName = "Проверка ошибок Checkout")
     public void checkCheckoutErrors(String firstName, String lastName, String postalCode, String expectedError) {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
-        productsPage.openCart();
-        cartPage.clickCheckout();
-        checkoutPage.fillCheckoutInfo(firstName, lastName, postalCode);
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct()
+                .openCart()
+                .clickCheckout()
+                .fillCheckoutInfo(firstName, lastName, postalCode);
         assertTrue(checkoutPage.isErrorMessageDisplayed());
         assertEquals(checkoutPage.getErrorMessage(), expectedError);
     }
@@ -35,12 +35,12 @@ public class CheckoutTest extends BaseTest{
             description = "Проверка перехода на страницу Overview после заполнения данных",
             testName = "Переход на страницу Overview")
     public void checkGoToOverviewStep() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
-        productsPage.openCart();
-        cartPage.clickCheckout();
-        checkoutPage.fillCheckoutInfo("Елена", "Абрамова", "12345");
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct()
+                .openCart()
+                .clickCheckout()
+                .fillCheckoutInfo("Елена", "Абрамова", "12345");
         assertTrue(driver.getCurrentUrl().contains("checkout-step-two.html"),
                 "Должен быть переход на страницу Overview");
     }
@@ -49,13 +49,13 @@ public class CheckoutTest extends BaseTest{
             description = "Проверка успешного завершения оформления заказа",
             testName = "Успешное завершение заказа")
     public void checkFinishOrder() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
-        productsPage.openCart();
-        cartPage.clickCheckout();
-        checkoutPage.fillCheckoutInfo("Елена", "Абрамова", "12345");
-        checkoutPage.clickFinish();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct()
+                .openCart()
+                .clickCheckout()
+                .fillCheckoutInfo("Елена", "Абрамова", "12345")
+                .clickFinish();
         assertTrue(driver.getCurrentUrl().contains("checkout-complete.html"),
                 "Должен быть переход на страницу об успешном завершении оформления заказа");
     }

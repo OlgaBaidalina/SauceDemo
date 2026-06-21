@@ -11,8 +11,8 @@ public class ProductsTest extends BaseTest{
             description = "Проверка заголовка страницы с товарами",
             testName = "Проверка заголовка страницы Products")
     public void checkPageTitle() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.open()
+                .login("standard_user", "secret_sauce");
         assertEquals(productsPage.getTitle(), "Products");
     }
 
@@ -20,9 +20,9 @@ public class ProductsTest extends BaseTest{
             description = "Проверка обновления счетчика корзины после добавления товара",
             testName = "Добавление товара в корзину")
     public void checkAddProductToCart() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct();
         assertEquals(productsPage.getQuantityCart(), 1);
     }
 
@@ -30,9 +30,9 @@ public class ProductsTest extends BaseTest{
             description = "Проверка сортировки товаров по имени от A до Z",
             testName = "Сортировка товаров Name(A to Z)")
     public void checkSortByNameAZ() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.sortBy("az");
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .sortBy("az");
         List<String> names = productsPage.getAllProductNames();
         for (int i = 0; i < names.size() - 1; i++) {
             assertTrue(names.get(i).compareTo(names.get(i + 1)) <= 0);
@@ -43,9 +43,9 @@ public class ProductsTest extends BaseTest{
             description = "Проверка сортировки товаров по имени от Z до A",
             testName = "Сортировка товаров Name(Z to A)")
     public void checkSortByNameZA() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.sortBy("za");
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .sortBy("za");
         List<String> names = productsPage.getAllProductNames();
         for (int i = 0; i < names.size() - 1; i++) {
             assertTrue(names.get(i).compareTo(names.get(i + 1)) >= 0);
@@ -56,9 +56,9 @@ public class ProductsTest extends BaseTest{
             description = "Проверка сортировки товаров по цене от меньшей к большей",
             testName = "Сортировка товаров Price(low to high)")
     public void checkSortByPriceLowToHigh() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.sortBy("lohi");
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .sortBy("lohi");
         List<Double> prices = productsPage.getAllProductPrices();
         for (int i = 0; i < prices.size() - 1; i++) {
             assertTrue(prices.get(i) <= prices.get(i + 1));
@@ -69,9 +69,9 @@ public class ProductsTest extends BaseTest{
             description = "Проверка сортировки товаров по цене от большей к меньшей",
             testName = "Сортировка товаров Price(high to low)")
     public void checkSortByPriceHighToLow() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.sortBy("hilo");
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .sortBy("hilo");
         List<Double> prices = productsPage.getAllProductPrices();
         for (int i = 0; i < prices.size() - 1; i++) {
             assertTrue(prices.get(i) >= prices.get(i + 1));
@@ -82,9 +82,9 @@ public class ProductsTest extends BaseTest{
             description = "Проверка перехода на страницу корзины по иконке корзины",
             testName = "Переход в корзину")
     public void checkGoToCartByIcon() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.openCart();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .openCart();
         assertTrue(driver.getCurrentUrl().contains("cart.html"));
     }
 }

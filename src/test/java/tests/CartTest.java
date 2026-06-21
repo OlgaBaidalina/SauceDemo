@@ -11,10 +11,10 @@ public class CartTest extends BaseTest {
             description = "Проверка соответствия названия товара в корзине",
             testName = "Проверка названия товара в корзине")
     public void checkProductNameInCart() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
-        productsPage.openCart();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct()
+                .openCart();
         assertEquals(cartPage.getProductName(), "Sauce Labs Fleece Jacket");
     }
 
@@ -22,10 +22,10 @@ public class CartTest extends BaseTest {
             description = "Проверка соответствия цены товара в корзине",
             testName = "Проверка цены товара в корзине")
     public void checkProductPriceInCart() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
-        productsPage.openCart();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct()
+                .openCart();
         assertEquals(cartPage.getProductPrice(), "$49.99");
     }
 
@@ -33,11 +33,11 @@ public class CartTest extends BaseTest {
             description = "Проверка перехода на страницу оформления заказа",
             testName = "Переход на страницу Checkout")
     public void checGoToCheckout() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
-        productsPage.openCart();
-        cartPage.clickCheckout();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct()
+                .openCart()
+                .clickCheckout();
         assertTrue(driver.getCurrentUrl().contains("checkout-step-one.html"),
                 "Должен быть переход на страницу оформления заказа");
     }
@@ -46,11 +46,11 @@ public class CartTest extends BaseTest {
             description = "Проверка удаления товара из корзины",
             testName = "Удаление товара из корзины")
     public void checkRemoveProductFromCart() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
-        productsPage.openCart();
-        cartPage.removeProduct();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct()
+                .openCart()
+                .removeProduct();
         boolean cartIsEmpty = driver.findElements(By.className("inventory_item_name")).size() == 0;
         assertTrue(cartIsEmpty, "Корзина должна быть пустой после удаления");
     }
@@ -59,11 +59,11 @@ public class CartTest extends BaseTest {
             description = "Проверка возврата на страницу с товарами",
             testName = "Возврат на страницу товара")
     public void checkContinueShopping() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct();
-        productsPage.openCart();
-        cartPage.clickContinueShopping();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct()
+                .openCart()
+                .clickContinueShopping();
         assertTrue(driver.getCurrentUrl().contains("inventory.html"),
                 "Должен быть возврат на страницу с товарами");
     }

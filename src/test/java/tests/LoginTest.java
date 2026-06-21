@@ -10,8 +10,8 @@ public class LoginTest extends BaseTest {
             description = "Проверка успешного входа в систему с корректными данными",
             testName = "Успешный логин")
     public void checkLoginWithPositiveCred() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.open()
+                .login("standard_user", "secret_sauce");
         assertEquals(productsPage.getTitle(), "Products");
     }
 
@@ -29,8 +29,8 @@ public class LoginTest extends BaseTest {
             description = "Проверка отображения ошибок при вводе некорректных данных",
             testName = "Негативный логин")
     public void negativeLogin(String user, String password, String errorMessage) {
-        loginPage.open();
-        loginPage.login(user, password);
+        loginPage.open()
+                .login(user, password);
         assertEquals(loginPage.getErrorMessage(), errorMessage);
     }
 }
