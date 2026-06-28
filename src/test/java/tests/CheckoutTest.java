@@ -25,12 +25,12 @@ public class CheckoutTest extends BaseTest{
     @Description("Проверка отображения ошибок при пустых полях оформления заказа")
     @Severity(SeverityLevel.NORMAL)
     public void checkCheckoutErrors(String firstName, String lastName, String postalCode, String expectedError) {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct("Sauce Labs Fleece Jacket");
-        productsPage.openCart();
-        cartPage.clickCheckout();
-        checkoutPage.fillCheckoutInfo(firstName, lastName, postalCode);
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct("Sauce Labs Fleece Jacket")
+                .openCart()
+                .clickCheckout()
+                .fillCheckoutInfo(firstName, lastName, postalCode);
         assertTrue(checkoutPage.isErrorMessageDisplayed());
         assertEquals(checkoutPage.getErrorMessage(), expectedError);
     }
@@ -40,12 +40,12 @@ public class CheckoutTest extends BaseTest{
     @Description("Проверка перехода на страницу Overview после заполнения данных")
     @Severity(SeverityLevel.CRITICAL)
     public void checkGoToOverviewStep() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct("Sauce Labs Fleece Jacket");
-        productsPage.openCart();
-        cartPage.clickCheckout();
-        checkoutPage.fillCheckoutInfo("Елена", "Абрамова", "12345");
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct("Sauce Labs Fleece Jacket")
+                .openCart()
+                .clickCheckout()
+                .fillCheckoutInfo("Елена", "Абрамова", "12345");
         assertTrue(driver.getCurrentUrl().contains("checkout-step-two.html"),
                 "Должен быть переход на страницу Overview");
     }
@@ -55,13 +55,13 @@ public class CheckoutTest extends BaseTest{
     @Description("Проверка успешного завершения оформления заказа")
     @Severity(SeverityLevel.BLOCKER)
     public void checkFinishOrder() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addProduct("Sauce Labs Fleece Jacket");
-        productsPage.openCart();
-        cartPage.clickCheckout();
-        checkoutPage.fillCheckoutInfo("Елена", "Абрамова", "12345");
-        checkoutPage.clickFinish();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addProduct("Sauce Labs Fleece Jacket")
+                .openCart()
+                .clickCheckout()
+                .fillCheckoutInfo("Елена", "Абрамова", "12345")
+                .clickFinish();
         assertTrue(driver.getCurrentUrl().contains("checkout-complete.html"),
                 "Должен быть переход на страницу об успешном завершении оформления заказа");
     }
